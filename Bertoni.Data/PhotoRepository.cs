@@ -1,0 +1,56 @@
+﻿using Bertoni.Data.Abstraction;
+using Bertoni.Data.Entitites;
+using Bertoni.Data.Helpers;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bertoni.Data
+{
+    public class PhotoRepository : IRepository<Photos>
+    {
+        private const string _url = @"https://jsonplaceholder.typicode.com/photos";
+
+        public Photos Get(int id)
+        {
+            Photos _return = null;
+
+            try
+            {
+                var _json = RestHelper.GetJsonRequest(_url, $"id={id}");
+
+                if(!String.IsNullOrEmpty(_json))
+                    _return = JsonConvert.DeserializeObject<Photos>(_json);
+            }
+            catch (Exception x)
+            {
+                throw;
+            }
+
+            return _return;
+        }
+
+        public IList<Photos> GetAll()
+        {
+            List<Photos> _return = null;
+
+            try
+            {
+                var _json = RestHelper.GetJsonRequest(_url);
+
+                if (!String.IsNullOrEmpty(_json))
+                    _return = JsonConvert.DeserializeObject<List<Photos>>(_json);
+            }
+            catch (Exception x)
+            {
+                throw;
+            }
+
+            return _return;
+        }
+    }
+}

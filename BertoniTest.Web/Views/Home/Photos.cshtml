@@ -1,0 +1,24 @@
+﻿@model List<Bertoni.Domain.BusinessObjects.Photo>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Thumbnail</td>
+            <td>Photo</td>
+            <td>Comments</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Model[i].Title</td>
+                <td><img src="@Model[i].Thumbnail" class="img-thumbnail" /></td>
+                <td><a href="@Model[i].Url" target="_blank">View larger photo</a></td>
+                <td><button class="btn btn-sm" onclick="loadComments(@Model[i].Id)">View comments</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
